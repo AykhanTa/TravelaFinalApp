@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelaFinalApp.Persistence.Data;
 
@@ -11,9 +12,11 @@ using TravelaFinalApp.Persistence.Data;
 namespace TravelaFinalApp.Persistence.Migrations
 {
     [DbContext(typeof(TravelaDbContext))]
-    partial class TravelaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240928174515_addAboutTable")]
+    partial class addAboutTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

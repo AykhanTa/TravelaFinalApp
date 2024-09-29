@@ -7,6 +7,7 @@ namespace TravelaFinalApp.Persistence.Data
     public class TravelaDbContext : DbContext
     {
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<About> Abouts { get; set; }
         public TravelaDbContext(DbContextOptions options) : base(options)
         {
         }

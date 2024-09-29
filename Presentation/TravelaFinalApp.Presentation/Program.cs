@@ -24,7 +24,9 @@ builder.Services.AddDbContext<TravelaDbContext>(opt =>
     opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
 });
 
+//services
 builder.Services.AddScoped<ISliderService,SliderService>();
+builder.Services.AddScoped<IAboutService,AboutService>();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -36,7 +38,9 @@ builder.Services.AddFluentValidationRulesToSwagger();
 
 builder.Services.AddHttpContextAccessor();
 
+//repos
 builder.Services.AddScoped<ISliderRepository,SliderRepository>();
+builder.Services.AddScoped<IAboutRepository,AboutRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {

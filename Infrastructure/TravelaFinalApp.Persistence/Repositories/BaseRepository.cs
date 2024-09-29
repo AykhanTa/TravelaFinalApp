@@ -19,6 +19,7 @@ namespace TravelaFinalApp.Persistence.Repositories
 
         public async Task CreateAsync(T entity)
         {
+            entity.CreateDate = DateTime.Now;
             var result=_context.Entry(entity);
             result.State = EntityState.Added;
         }
@@ -63,6 +64,7 @@ namespace TravelaFinalApp.Persistence.Repositories
 
         public async Task UpdateAsync(T entity)
         {
+            entity.UpdateDate = DateTime.Now;
             var result=_context.Entry(entity);
             result.State = EntityState.Modified;
         }
@@ -77,7 +79,7 @@ namespace TravelaFinalApp.Persistence.Repositories
         }
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _table.AsNoTracking().FirstOrDefaultAsync(x =>!x.IsDeleted && x.Id == id);
+            return await _table.FirstOrDefaultAsync(x =>!x.IsDeleted && x.Id == id);
         }
     }
 }

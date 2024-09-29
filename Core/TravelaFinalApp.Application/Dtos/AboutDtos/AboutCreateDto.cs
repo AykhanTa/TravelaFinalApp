@@ -1,52 +1,45 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace TravelaFinalApp.Application.Dtos.SliderDtos
+namespace TravelaFinalApp.Application.Dtos.AboutDtos
 {
-    public class SliderCreateDto
+    public class AboutCreateDto
     {
         public string Title { get; set; }
-        public string SubTitle { get; set; }
         public string Description { get; set; }
         public IFormFile File { get; set; }
     }
-    public class SliderCreateDtoValidator : AbstractValidator<SliderCreateDto>
+    public class AboutCreateDtoValidator : AbstractValidator<AboutCreateDto>
     {
-        public SliderCreateDtoValidator()
+        public AboutCreateDtoValidator()
         {
-            RuleFor(s=>s.Title)
+            RuleFor(a => a.Title)
                 .NotEmpty()
                 .MinimumLength(5)
                 .MaximumLength(100);
 
-            RuleFor(s => s.SubTitle)
-                .NotEmpty()
-                .MinimumLength(5)
-                .MaximumLength(100);
-
-            RuleFor(s => s.Description)
+            RuleFor(a => a.Description)
                 .NotEmpty()
                 .MinimumLength(30)
                 .MaximumLength(150);
 
-            RuleFor(s => s)
-            .Custom((s, context) =>
+            RuleFor(a => a)
+            .Custom((a, context) =>
             {
-                 if (s.File == null)
-                 {
+                if (a.File == null)
+                {
                     context.AddFailure("File", "not empty");
                     return;
-                 }
-                if (s.File.Length / 1024 > 500)
+                }
+                if (a.File.Length / 1024 > 500)
                 {
                     context.AddFailure("File", "size is too large");
                 }
-                if (!s.File.ContentType.Contains("image/"))
+                if (!a.File.ContentType.Contains("image/"))
                 {
                     context.AddFailure("File", "file must be only imagee");
                 }
             });
-
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
-using TravelaFinalApp.Persistence.Data;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
 
 namespace TravelaFinalApp.Persistence.Implementations
