@@ -46,6 +46,7 @@ namespace TravelaFinalApp.Persistence.Implementations
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", existSlider.Image);
             FileHelper.DeleteFileFromRoute(path);
             _mapper.Map(sliderUpdateDto, existSlider);
+            await sliderRepository.UpdateAsync(existSlider);
             await sliderRepository.SaveChangesAsync();
             return existSlider.Id;
         }

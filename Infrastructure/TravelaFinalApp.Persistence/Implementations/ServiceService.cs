@@ -40,6 +40,7 @@ namespace TravelaFinalApp.Persistence.Implementations
             if (existService == null)
                 throw new NullReferenceException("Service not found..");
             _mapper.Map(serviceUpdateDto,existService);
+            await serviceRepository.UpdateAsync(existService);
             await serviceRepository.SaveChangesAsync();            
         }
     }

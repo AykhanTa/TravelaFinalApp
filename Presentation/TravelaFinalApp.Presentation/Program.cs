@@ -28,6 +28,7 @@ builder.Services.AddDbContext<TravelaDbContext>(opt =>
 builder.Services.AddScoped<ISliderService,SliderService>();
 builder.Services.AddScoped<IAboutService,AboutService>();
 builder.Services.AddScoped<IServiceService,ServiceService>();
+builder.Services.AddScoped<ITestimonialService,TestimonialService>();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -43,6 +44,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ISliderRepository,SliderRepository>();
 builder.Services.AddScoped<IAboutRepository,AboutRepository>();
 builder.Services.AddScoped<IServiceRepository,ServiceRepository>();
+builder.Services.AddScoped<ITestimonialRepository,TestimonialRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {

@@ -4,19 +4,19 @@ using TravelaFinalApp.Domain.Entities;
 
 namespace TravelaFinalApp.Persistence.Configurations
 {
-    public class SliderConfiguration : IEntityTypeConfiguration<Slider>
+    public class TestimonialConfiguration : IEntityTypeConfiguration<Testimonial>
     {
-        public void Configure(EntityTypeBuilder<Slider> builder)
+        public void Configure(EntityTypeBuilder<Testimonial> builder)
         {
-            builder.Property(s => s.Title)
+            builder.Property(s => s.FullName)
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(s => s.SubTitle)
+            builder.Property(s => s.Country)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(30);
 
-            builder.Property(s=>s.Description)
+            builder.Property(s => s.Description)
                 .IsRequired()
                 .HasMaxLength(200);
 

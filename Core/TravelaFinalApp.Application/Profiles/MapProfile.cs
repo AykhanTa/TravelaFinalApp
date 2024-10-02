@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
 using TravelaFinalApp.Application.Dtos.ServiceDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
+using TravelaFinalApp.Application.Dtos.TestimonialDtos;
 using TravelaFinalApp.Application.Extensions;
 using TravelaFinalApp.Domain.Entities;
 
@@ -48,6 +49,16 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<Service, ServiceReturnDto>();
 
             CreateMap<ServiceUpdateDto, Service>();
+
+            //testimonial
+            CreateMap<TestimonialCreateDto, Testimonial>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+            CreateMap<Testimonial, TestimonialReturnDto>();
+
+            CreateMap<TestimonialUpdateDto,Testimonial>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
         }
     } 
 }
