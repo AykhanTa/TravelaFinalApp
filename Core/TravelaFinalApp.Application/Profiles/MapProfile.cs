@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
+using TravelaFinalApp.Application.Dtos.ServiceDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Extensions;
 using TravelaFinalApp.Domain.Entities;
@@ -39,6 +40,14 @@ namespace TravelaFinalApp.Application.Profiles
                 .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
 
             CreateMap<About, AboutReturnDto>();
+
+
+            //service
+            CreateMap<ServiceCreateDto, Service>();
+
+            CreateMap<Service, ServiceReturnDto>();
+
+            CreateMap<ServiceUpdateDto, Service>();
         }
     } 
 }
