@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
+using TravelaFinalApp.Application.Dtos.BlogDtos;
 using TravelaFinalApp.Application.Dtos.ServiceDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
@@ -57,6 +58,16 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<Testimonial, TestimonialReturnDto>();
 
             CreateMap<TestimonialUpdateDto,Testimonial>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+
+            //blog
+            CreateMap<Blog, BlogReturnDto>();
+
+            CreateMap<BlogCreateDto,Blog>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+            CreateMap<BlogUpdateDto, Blog>()
                 .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
 
         }

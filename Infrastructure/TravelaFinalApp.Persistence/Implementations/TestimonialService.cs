@@ -21,7 +21,7 @@ namespace TravelaFinalApp.Persistence.Implementations
             var existTestimonial=await testimonialRepository.GetByIdAsync(id);
             if (existTestimonial == null)
                 throw new NullReferenceException("Testimonial not found");
-            existTestimonial.IsDeleted= true;
+            existTestimonial.IsDeleted= true;   
             await testimonialRepository.SaveChangesAsync();
         }
 

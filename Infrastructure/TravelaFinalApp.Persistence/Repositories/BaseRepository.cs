@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using TravelaFinalApp.Domain.Entities;
 using TravelaFinalApp.Persistence.Data;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TravelaFinalApp.Persistence.Repositories
 {
