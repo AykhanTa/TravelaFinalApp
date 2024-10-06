@@ -11,6 +11,7 @@ namespace TravelaFinalApp.Persistence.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Destination> Destinations { get; set; }
 
         public TravelaDbContext(DbContextOptions options) : base(options)
         {
