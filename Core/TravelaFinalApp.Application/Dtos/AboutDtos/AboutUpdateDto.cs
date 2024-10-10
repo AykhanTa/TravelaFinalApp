@@ -14,12 +14,12 @@ namespace TravelaFinalApp.Application.Dtos.AboutDtos
         public AboutUpdateDtoValidator()
         {
             RuleFor(a => a.Title)
-                .NotEmpty()
+                //.NotEmpty()
                 .MinimumLength(5)
                 .MaximumLength(100);
 
             RuleFor(a => a.Description)
-                .NotEmpty()
+                //.NotEmpty()
                 .MinimumLength(30)
                 .MaximumLength(150);
 

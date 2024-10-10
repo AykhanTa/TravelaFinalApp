@@ -9,6 +9,7 @@ using TravelaFinalApp.Application.Dtos.SliderDtos;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
 using TravelaFinalApp.Persistence.Repositories;
+using TravelaFinalApp.Presentation.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -31,6 +32,9 @@ builder.Services.AddScoped<IServiceService,ServiceService>();
 builder.Services.AddScoped<ITestimonialService,TestimonialService>();
 builder.Services.AddScoped<IBlogService,BlogService>();
 builder.Services.AddScoped<IDestinationService,DestinationService>();
+builder.Services.AddScoped<IGuideService,GuideService>();
+builder.Services.AddScoped<IGuideSocialService,GuideSocialService>();
+
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -49,6 +53,8 @@ builder.Services.AddScoped<IServiceRepository,ServiceRepository>();
 builder.Services.AddScoped<ITestimonialRepository,TestimonialRepository>();
 builder.Services.AddScoped<IBlogRepository,BlogRepository>();
 builder.Services.AddScoped<IDestinationRepository,DestinationRepository>();
+builder.Services.AddScoped<IGuideRepository,GuideRepository>();
+builder.Services.AddScoped<IGuideSocialRepository,GuideSocialRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {
@@ -63,6 +69,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseStaticFiles();
 

@@ -18,14 +18,14 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
             return CreatedAtAction(nameof(Create), new { Response = "Data Successfully Created" });
         }
 
-        [HttpDelete("")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await aboutService.DeleteAsync(id);
             return Ok();
         }
 
-        [HttpPut("")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id,AboutUpdateDto aboutUpdateDto)
         {
             await aboutService.UpdateAsync(id, aboutUpdateDto);
@@ -38,7 +38,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
             return Ok(_mapper.Map<List<AboutReturnDto>>(await aboutService.GetAllAsync()));
         }
 
-        [HttpGet("")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(_mapper.Map<AboutReturnDto>(await aboutService.GetByIdAsync(id)));

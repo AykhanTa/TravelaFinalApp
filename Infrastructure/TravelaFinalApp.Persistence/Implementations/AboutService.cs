@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
+using TravelaFinalApp.Application.Exceptions;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
@@ -18,10 +19,10 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            if (id==null) throw new ArgumentNullException(nameof(id));
+            if (id==null) throw new CustomException("Id","Id can't be null..");
             var existAbout=await aboutRepository.GetByIdAsync(id);
             if (existAbout == null)
-                throw new NullReferenceException();
+                throw new CustomException("Id","Data not found..");
             existAbout.IsDeleted= true;
             await aboutRepository.SaveChangesAsync();
         }
@@ -33,6 +34,10 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         public async Task<About> GetByIdAsync(int id)
         {
+            if (id == null) throw new CustomException("Id", "Id can't be null..");
+            var existAbout = await aboutRepository.GetByIdAsync(id);
+            if (existAbout == null)
+                throw new CustomException("Id", "Data not found..");
             return await aboutRepository.GetByIdAsync(id);
         }
 
@@ -40,7 +45,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existAbout = await aboutRepository.GetEntityAsync(s => s.Id == id && !s.IsDeleted);
             if (existAbout == null)
-                throw new NullReferenceException();
+                throw new CustomException("Id", "Data not found..");
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", existAbout.Image);
             FileHelper.DeleteFileFromRoute(path);
             _mapper.Map(aboutUpdateDto, existAbout);

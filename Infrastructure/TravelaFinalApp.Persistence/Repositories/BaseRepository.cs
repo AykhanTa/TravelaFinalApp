@@ -9,7 +9,7 @@ namespace TravelaFinalApp.Persistence.Repositories
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly TravelaDbContext _context;
-        private DbSet<T> _table;
+        protected DbSet<T> _table;
         public BaseRepository(TravelaDbContext context)
         {
             _context = context;

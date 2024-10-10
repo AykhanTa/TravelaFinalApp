@@ -12,6 +12,8 @@ namespace TravelaFinalApp.Persistence.Data
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Destination> Destinations { get; set; }
+        public DbSet<Guide> Guide { get; set; }
+        public DbSet<GuideSocial> GuideSocials { get; set; }
 
         public TravelaDbContext(DbContextOptions options) : base(options)
         {

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
 using TravelaFinalApp.Application.Dtos.BlogDtos;
 using TravelaFinalApp.Application.Dtos.DestinationDtos;
+using TravelaFinalApp.Application.Dtos.GuideDtos;
+using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
 using TravelaFinalApp.Application.Dtos.ServiceDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
@@ -81,6 +83,25 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<DestinationUpdateDto, Destination>()
                 .ForMember(d => d.MainImage, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
 
+            //guide
+            CreateMap<Guide, GuideReturnDto>();
+
+            CreateMap<GuideCreateDto, Guide>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+            CreateMap<GuideSocial,GuideSocialsInGuideReturnDto>();
+
+            CreateMap<GuideUpdateDto, Guide>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+            //guideSocial
+            CreateMap<GuideSocialCreateDto, GuideSocial>();
+            
+            CreateMap<GuideSocial,GuideSocialReturnDto>();
+
+            CreateMap<Guide, GuideInGuideSocialReturnDto>();
+
+            CreateMap<GuideSocialUpdateDto, GuideSocial>();
         }
     } 
 }
