@@ -34,6 +34,7 @@ builder.Services.AddScoped<IBlogService,BlogService>();
 builder.Services.AddScoped<IDestinationService,DestinationService>();
 builder.Services.AddScoped<IGuideService,GuideService>();
 builder.Services.AddScoped<IGuideSocialService,GuideSocialService>();
+builder.Services.AddScoped<ISettingService,SettingService>();
 
 
 builder.Services.AddFluentValidationAutoValidation();
@@ -55,6 +56,7 @@ builder.Services.AddScoped<IBlogRepository,BlogRepository>();
 builder.Services.AddScoped<IDestinationRepository,DestinationRepository>();
 builder.Services.AddScoped<IGuideRepository,GuideRepository>();
 builder.Services.AddScoped<IGuideSocialRepository,GuideSocialRepository>();
+builder.Services.AddScoped<ISettingRepository,SettingRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {

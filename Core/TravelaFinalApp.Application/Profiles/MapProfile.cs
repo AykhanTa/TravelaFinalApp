@@ -6,6 +6,7 @@ using TravelaFinalApp.Application.Dtos.DestinationDtos;
 using TravelaFinalApp.Application.Dtos.GuideDtos;
 using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
 using TravelaFinalApp.Application.Dtos.ServiceDtos;
+using TravelaFinalApp.Application.Dtos.SettingDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
 using TravelaFinalApp.Application.Extensions;
@@ -102,6 +103,13 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<Guide, GuideInGuideSocialReturnDto>();
 
             CreateMap<GuideSocialUpdateDto, GuideSocial>();
+
+            //setting
+            CreateMap<Setting,SettingReturnDto>();
+
+            CreateMap<SettingCreateDto, Setting>();
+
+            CreateMap<SettingUpdateDto, Setting>();
         }
     } 
 }
