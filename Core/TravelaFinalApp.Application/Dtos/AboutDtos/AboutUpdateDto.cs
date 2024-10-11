@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using TravelaFinalApp.Application.Extensions;
 
 namespace TravelaFinalApp.Application.Dtos.AboutDtos
 {
@@ -16,7 +17,9 @@ namespace TravelaFinalApp.Application.Dtos.AboutDtos
             RuleFor(a => a.Title)
                 //.NotEmpty()
                 .MinimumLength(5)
-                .MaximumLength(100);
+                .MaximumLength(100)
+                .Must(ValidatorExtension.NotContainOnlyNumbers).WithMessage("Title can not be only numbers..");
+            ;
 
             RuleFor(a => a.Description)
                 //.NotEmpty()

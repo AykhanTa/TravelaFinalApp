@@ -8,6 +8,7 @@ using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
 using TravelaFinalApp.Application.Dtos.ServiceDtos;
 using TravelaFinalApp.Application.Dtos.SettingDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
+using TravelaFinalApp.Application.Dtos.SubscribeDtos;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
 using TravelaFinalApp.Application.Extensions;
 using TravelaFinalApp.Domain.Entities;
@@ -110,6 +111,11 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<SettingCreateDto, Setting>();
 
             CreateMap<SettingUpdateDto, Setting>();
+
+            //subscribe
+            CreateMap<SubscribeCreateDto, Subscribe>();
+
+            CreateMap<Subscribe,SubscribeReturnDto>();
         }
     } 
 }

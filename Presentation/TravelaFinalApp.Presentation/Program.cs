@@ -35,6 +35,7 @@ builder.Services.AddScoped<IDestinationService,DestinationService>();
 builder.Services.AddScoped<IGuideService,GuideService>();
 builder.Services.AddScoped<IGuideSocialService,GuideSocialService>();
 builder.Services.AddScoped<ISettingService,SettingService>();
+builder.Services.AddScoped<ISubscribeService,SubscribeService>();
 
 
 builder.Services.AddFluentValidationAutoValidation();
@@ -57,6 +58,7 @@ builder.Services.AddScoped<IDestinationRepository,DestinationRepository>();
 builder.Services.AddScoped<IGuideRepository,GuideRepository>();
 builder.Services.AddScoped<IGuideSocialRepository,GuideSocialRepository>();
 builder.Services.AddScoped<ISettingRepository,SettingRepository>();
+builder.Services.AddScoped<ISubscribeRepository,SubscribeRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {
