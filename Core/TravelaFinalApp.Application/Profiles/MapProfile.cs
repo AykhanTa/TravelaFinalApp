@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
 using TravelaFinalApp.Application.Dtos.BlogDtos;
+using TravelaFinalApp.Application.Dtos.CategoryDtos;
 using TravelaFinalApp.Application.Dtos.DestinationDtos;
 using TravelaFinalApp.Application.Dtos.GuideDtos;
 using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
@@ -116,6 +117,17 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<SubscribeCreateDto, Subscribe>();
 
             CreateMap<Subscribe,SubscribeReturnDto>();
+
+            //category
+            CreateMap<CategoryCreateDto,Category>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+            CreateMap<Category,CategoryReturnDto>();
+
+            CreateMap<CategoryUpdateDto, Category>()
+                .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
+
+
         }
     } 
 }

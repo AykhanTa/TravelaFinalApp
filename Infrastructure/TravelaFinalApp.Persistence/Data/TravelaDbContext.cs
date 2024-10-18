@@ -16,6 +16,9 @@ namespace TravelaFinalApp.Persistence.Data
         public DbSet<GuideSocial> GuideSocials { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<TourCategory> TourCategories { get; set; }
 
         public TravelaDbContext(DbContextOptions options) : base(options)
         {

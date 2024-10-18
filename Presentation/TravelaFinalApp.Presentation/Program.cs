@@ -36,6 +36,7 @@ builder.Services.AddScoped<IGuideService,GuideService>();
 builder.Services.AddScoped<IGuideSocialService,GuideSocialService>();
 builder.Services.AddScoped<ISettingService,SettingService>();
 builder.Services.AddScoped<ISubscribeService,SubscribeService>();
+builder.Services.AddScoped<ICategoryService,CategoryService>();
 
 
 builder.Services.AddFluentValidationAutoValidation();
@@ -59,6 +60,7 @@ builder.Services.AddScoped<IGuideRepository,GuideRepository>();
 builder.Services.AddScoped<IGuideSocialRepository,GuideSocialRepository>();
 builder.Services.AddScoped<ISettingRepository,SettingRepository>();
 builder.Services.AddScoped<ISubscribeRepository,SubscribeRepository>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {
