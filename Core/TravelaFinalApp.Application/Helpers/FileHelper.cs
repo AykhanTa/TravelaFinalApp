@@ -1,4 +1,6 @@
-﻿namespace TravelaFinalApp.Application.Helpers
+﻿using Microsoft.AspNetCore.Http;
+
+namespace TravelaFinalApp.Application.Helpers
 {
     public static class FileHelper
     {
@@ -7,5 +9,10 @@
             if(System.IO.File.Exists(path))
                 System.IO.File.Delete(path);
         }
+        public static async Task SaveFileToLocalAsync(this IFormFile file, string path)
+        {
+            using FileStream stream = new(path, FileMode.Create);
+            await file.CopyToAsync(stream);
+        }
     }
-}
+}   

@@ -12,6 +12,8 @@ namespace TravelaFinalApp.Persistence.Implementations
     {
         public async Task CreateAsync(CategoryCreateDto categoryCreateDto)
         {
+            if (!await categoryRepository.IsExist(c => c.Name.ToLower() == categoryCreateDto.Name.ToLower()))
+                throw new CustomException("Name", $"{categoryCreateDto.Name} category already exist..");
             var category=_mapper.Map<Category>(categoryCreateDto);
             await categoryRepository.CreateAsync(category);
             await categoryRepository.SaveChangesAsync();

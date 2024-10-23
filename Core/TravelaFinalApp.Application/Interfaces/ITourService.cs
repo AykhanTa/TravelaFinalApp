@@ -1,0 +1,13 @@
+﻿using TravelaFinalApp.Application.Dtos.TourDtos;
+
+namespace TravelaFinalApp.Application.Interfaces
+{
+    public interface ITourService
+    {
+        Task<List<TourReturnDto>> GetAllAsync();
+        Task<TourReturnDto> GetByIdAsync(int id);
+        Task CreateAsync(TourCreateDto tourCreateDto);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(int id,TourUpdateDto tourUpdateDto);
+    }
+}

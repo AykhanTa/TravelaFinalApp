@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelaFinalApp.Persistence.Data;
 
@@ -11,9 +12,11 @@ using TravelaFinalApp.Persistence.Data;
 namespace TravelaFinalApp.Persistence.Migrations
 {
     [DbContext(typeof(TravelaDbContext))]
-    partial class TravelaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020174442_addBaseEntityTourCategoryTable")]
+    partial class addBaseEntityTourCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -504,39 +507,6 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.ToTable("TourCategories");
                 });
 
-            modelBuilder.Entity("TravelaFinalApp.Domain.Entities.TourImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TourId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TourId");
-
-                    b.ToTable("TourImages");
-                });
-
             modelBuilder.Entity("TravelaFinalApp.Domain.Entities.GuideSocial", b =>
                 {
                     b.HasOne("TravelaFinalApp.Domain.Entities.Guide", "Guide")
@@ -578,17 +548,6 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.Navigation("Tour");
                 });
 
-            modelBuilder.Entity("TravelaFinalApp.Domain.Entities.TourImage", b =>
-                {
-                    b.HasOne("TravelaFinalApp.Domain.Entities.Tour", "Tour")
-                        .WithMany("TourImages")
-                        .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Tour");
-                });
-
             modelBuilder.Entity("TravelaFinalApp.Domain.Entities.Category", b =>
                 {
                     b.Navigation("TourCategories");
@@ -607,8 +566,6 @@ namespace TravelaFinalApp.Persistence.Migrations
             modelBuilder.Entity("TravelaFinalApp.Domain.Entities.Tour", b =>
                 {
                     b.Navigation("TourCategories");
-
-                    b.Navigation("TourImages");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,7 @@ using TravelaFinalApp.Application.Dtos.SettingDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Dtos.SubscribeDtos;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
+using TravelaFinalApp.Application.Dtos.TourDtos;
 using TravelaFinalApp.Application.Extensions;
 using TravelaFinalApp.Domain.Entities;
 
@@ -128,6 +129,19 @@ namespace TravelaFinalApp.Application.Profiles
                 .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
 
 
+            //tour
+            CreateMap<Destination,DestinationInTourReturnDto>();
+
+            CreateMap<Tour, TourReturnDto>()
+                .ForMember(d => d.Categories, opt => opt.MapFrom(s => s.TourCategories.Select(c => new CategoryReturnDto
+                {
+                    Id = c.Id,
+                    Name = c.Category.Name
+                })));
+
+            CreateMap<TourCreateDto,Tour>();
+
+            CreateMap<TourUpdateDto, Tour>();
         }
     } 
 }

@@ -11,5 +11,6 @@
         public int DestinationId { get; set; }
         public Destination Destination { get; set; }
         public List<TourCategory> TourCategories { get; set; }
+        public List<TourImage> TourImages { get; set; } = new();
     }
 }

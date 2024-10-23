@@ -37,6 +37,7 @@ builder.Services.AddScoped<IGuideSocialService,GuideSocialService>();
 builder.Services.AddScoped<ISettingService,SettingService>();
 builder.Services.AddScoped<ISubscribeService,SubscribeService>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<ITourService,TourService>();
 
 
 builder.Services.AddFluentValidationAutoValidation();
@@ -61,6 +62,9 @@ builder.Services.AddScoped<IGuideSocialRepository,GuideSocialRepository>();
 builder.Services.AddScoped<ISettingRepository,SettingRepository>();
 builder.Services.AddScoped<ISubscribeRepository,SubscribeRepository>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+builder.Services.AddScoped<ITourRepository,TourRepository>();
+builder.Services.AddScoped<ITourCategoryRepository,TourCategoryRepository>();
+builder.Services.AddScoped<ITourImageRepository,TourImageRepository>();
 
 builder.Services.AddAutoMapper(opt =>
 {
