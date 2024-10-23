@@ -10,66 +10,15 @@ using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
 using TravelaFinalApp.Persistence.Repositories;
 using TravelaFinalApp.Presentation.Middlewares;
+using TravelaFinalApp.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using TravelaFinalApp.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<TravelaDbContext>(opt =>
-{
-    opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-});
-
-//services
-builder.Services.AddScoped<ISliderService,SliderService>();
-builder.Services.AddScoped<IAboutService,AboutService>();
-builder.Services.AddScoped<IServiceService,ServiceService>();
-builder.Services.AddScoped<ITestimonialService,TestimonialService>();
-builder.Services.AddScoped<IBlogService,BlogService>();
-builder.Services.AddScoped<IDestinationService,DestinationService>();
-builder.Services.AddScoped<IGuideService,GuideService>();
-builder.Services.AddScoped<IGuideSocialService,GuideSocialService>();
-builder.Services.AddScoped<ISettingService,SettingService>();
-builder.Services.AddScoped<ISubscribeService,SubscribeService>();
-builder.Services.AddScoped<ICategoryService,CategoryService>();
-builder.Services.AddScoped<ITourService,TourService>();
-
-
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddFluentValidationClientsideAdapters();
-
-builder.Services.AddValidatorsFromAssemblyContaining<SliderCreateDtoValidator>();
-
-builder.Services.AddFluentValidationRulesToSwagger();
-
-
-builder.Services.AddHttpContextAccessor();
-
-//repos
-builder.Services.AddScoped<ISliderRepository,SliderRepository>();
-builder.Services.AddScoped<IAboutRepository,AboutRepository>();
-builder.Services.AddScoped<IServiceRepository,ServiceRepository>();
-builder.Services.AddScoped<ITestimonialRepository,TestimonialRepository>();
-builder.Services.AddScoped<IBlogRepository,BlogRepository>();
-builder.Services.AddScoped<IDestinationRepository,DestinationRepository>();
-builder.Services.AddScoped<IGuideRepository,GuideRepository>();
-builder.Services.AddScoped<IGuideSocialRepository,GuideSocialRepository>();
-builder.Services.AddScoped<ISettingRepository,SettingRepository>();
-builder.Services.AddScoped<ISubscribeRepository,SubscribeRepository>();
-builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
-builder.Services.AddScoped<ITourRepository,TourRepository>();
-builder.Services.AddScoped<ITourCategoryRepository,TourCategoryRepository>();
-builder.Services.AddScoped<ITourImageRepository,TourImageRepository>();
-
-builder.Services.AddAutoMapper(opt =>
-{
-    opt.AddProfile(new MapProfile(new HttpContextAccessor()));
-});
+builder.Services.Register(config);
 
 var app = builder.Build();
 
@@ -85,6 +34,8 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

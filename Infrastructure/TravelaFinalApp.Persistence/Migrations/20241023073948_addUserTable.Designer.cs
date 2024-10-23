@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelaFinalApp.Persistence.Data;
 
@@ -11,9 +12,11 @@ using TravelaFinalApp.Persistence.Data;
 namespace TravelaFinalApp.Persistence.Migrations
 {
     [DbContext(typeof(TravelaDbContext))]
-    partial class TravelaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241023073948_addUserTable")]
+    partial class addUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,20 +50,6 @@ namespace TravelaFinalApp.Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "05e2fdfe-64e2-4252-af74-a6885e820ca5",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "63879464-316a-4d59-ab27-6a86364c046c",
-                            Name = "Member",
-                            NormalizedName = "MEMBER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -148,18 +137,6 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "032ced36-61a9-4d75-ba72-e52103c7bf33",
-                            RoleId = "05e2fdfe-64e2-4252-af74-a6885e820ca5"
-                        },
-                        new
-                        {
-                            UserId = "a87be9a8-25e3-4221-85d5-fc4a428c9b13",
-                            RoleId = "63879464-316a-4d59-ab27-6a86364c046c"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -283,42 +260,6 @@ namespace TravelaFinalApp.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "032ced36-61a9-4d75-ba72-e52103c7bf33",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "32a7b704-a022-4847-9397-5ed19e051cb9",
-                            Email = "admin@example.com",
-                            EmailConfirmed = true,
-                            FullName = "Ulvi Majid",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                            NormalizedUserName = "ULVI9",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHwAz3gfcuQ7r+BahvRw5JQX/NaZuM9r1YwdoluFcS12Zr8ONf2xV4YwdHojQG2NOg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "9a12e51f-30c7-4947-b85d-9aa94113d671",
-                            TwoFactorEnabled = false,
-                            UserName = "ulvim9"
-                        },
-                        new
-                        {
-                            Id = "a87be9a8-25e3-4221-85d5-fc4a428c9b13",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8f9ad08f-eca6-4bab-bf6e-6167df99b187",
-                            Email = "user@example.com",
-                            EmailConfirmed = true,
-                            FullName = "Aykhan Taghizada",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@EXAMPLE.COM",
-                            NormalizedUserName = "AYKHANT1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE+kOtvzfdcttvbM0J5z9Z5ensBP+W9RHAghqLIFRKxLLs+jNhKVR157iPLFe4LUZA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "13207085-2337-40b9-9af1-2769d33307eb",
-                            TwoFactorEnabled = false,
-                            UserName = "aykhant1"
-                        });
                 });
 
             modelBuilder.Entity("TravelaFinalApp.Domain.Entities.Blog", b =>
