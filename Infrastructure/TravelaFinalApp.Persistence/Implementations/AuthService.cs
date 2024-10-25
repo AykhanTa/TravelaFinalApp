@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Web;
@@ -208,6 +204,101 @@ namespace TravelaFinalApp.Persistence.Implementations
             {
                 StatusCode = (int)StatusCodes.Status200OK,
                 ResponseMessage = "Password succesfully updated"
+            };
+        }
+
+        public async Task<ResponseObj> AddRoleAsync(string username, string roleName)
+        {
+            AppUser user = await userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = "User does not exist.",
+                    StatusCode = (int)StatusCodes.Status404NotFound
+                };
+            }
+
+            if(!await roleManager.RoleExistsAsync(roleName))
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = "Role doesn't exist",
+                    StatusCode = (int)StatusCodes.Status400BadRequest
+                };
+            }
+            var userRoles = await userManager.GetRolesAsync(user);
+            if(userRoles.Any(r=>r.Equals(roleName,StringComparison.OrdinalIgnoreCase)))
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = $"User already have {roleName} role..",
+                    StatusCode = (int)StatusCodes.Status400BadRequest
+
+                };
+            }
+
+            var result = await userManager.AddToRoleAsync(user, roleName);
+            if (!result.Succeeded)
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = string.Join(", ", result.Errors.Select(error => error.Description)),
+                    StatusCode = (int)StatusCodes.Status400BadRequest
+                };
+            }
+
+            return new ResponseObj
+            {
+                ResponseMessage = $"Role '{roleName}' added to user '{username}' successfully.",
+                StatusCode = (int)StatusCodes.Status200OK
+            };
+
+
+        }
+
+        public async Task<ResponseObj> RemoveRoleAsync(string username, string roleName)
+        {
+            AppUser user = await userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = "User does not exist.",
+                    StatusCode = (int)StatusCodes.Status404NotFound
+                };
+            }
+
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = "Role doesn't exist",
+                    StatusCode = (int)StatusCodes.Status400BadRequest
+                };
+            }
+            if (roleName.Equals("Member", StringComparison.OrdinalIgnoreCase))
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = "'Member' role can't be remove.",
+                    StatusCode = (int)StatusCodes.Status400BadRequest
+                };
+            }
+            var result=await userManager.RemoveFromRoleAsync(user, roleName);
+            if (!result.Succeeded)
+            {
+                return new ResponseObj
+                {
+                    ResponseMessage = string.Join(", ", result.Errors.Select(error => error.Description)),
+                    StatusCode = (int)StatusCodes.Status400BadRequest
+                };
+            }
+
+            return new ResponseObj
+            {
+                ResponseMessage = $"Role '{roleName}' removed from user '{username}' successfully.",
+                StatusCode = (int)StatusCodes.Status200OK
             };
         }
     }

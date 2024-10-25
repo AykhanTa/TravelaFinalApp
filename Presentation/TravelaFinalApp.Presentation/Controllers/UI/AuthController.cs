@@ -59,5 +59,6 @@ namespace TravelaFinalApp.Presentation.Controllers.UI
 
             return Ok(responseObj.ResponseMessage);
         }
+
     }
 }
