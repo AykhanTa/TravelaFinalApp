@@ -22,7 +22,11 @@ namespace TravelaFinalApp.Persistence.Repositories
 
         public async Task<Tour> GetByIdWithIncludesAsync(int id)
         {
-            return await _context.Tours.Include(t=>t.Destination).Include(t=>t.TourImages).Include(t=>t.TourCategories).ThenInclude(t=>t.Category).FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted);
+            return await _context.Tours.
+                Include(t=>t.Destination).
+                Include(t=>t.TourImages.Where(ti=>!ti.IsDeleted)).
+                Include(t=>t.TourCategories.Where(tc => !tc.IsDeleted)).ThenInclude(t=>t.Category).
+                FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
 using TravelaFinalApp.Application.Interfaces;
@@ -7,6 +8,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
     [Route("api/admin/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class TestimonialController(ITestimonialService testimonialService) : ControllerBase
     {
 
@@ -20,6 +22,8 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute]int id)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             await testimonialService.DeleteAsync(id);
             return Ok(new {Response="Data successfully deleted"});
         }
@@ -27,6 +31,8 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute]int id, [FromForm]TestimonialUpdateDto dto)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             await testimonialService.UpdateAsync(id, dto);
             return Ok(new {Response="Data successfully updated"});
 
@@ -41,6 +47,8 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             return Ok(await testimonialService.GetByIdAsync(id));
         }
     }

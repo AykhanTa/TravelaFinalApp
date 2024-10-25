@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TravelaFinalApp.Application.Dtos.DestinationDtos;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Persistence.Implementations;
@@ -7,6 +8,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
     [Route("api/admin/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class DestinationController(IDestinationService destinationService) : ControllerBase
     {
         [HttpPost("")]

@@ -18,6 +18,8 @@ namespace TravelaFinalApp.Persistence.Data
         public DbSet<GuideSocial> GuideSocials { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<GetAppointment> GetAppointments { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<TourCategory> TourCategories { get; set; }
@@ -31,6 +33,8 @@ namespace TravelaFinalApp.Persistence.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //seedData
 
             List<IdentityRole> roles = new List<IdentityRole>
             {
@@ -77,6 +81,11 @@ namespace TravelaFinalApp.Persistence.Data
                 new IdentityUserRole<string>
                 {
                     RoleId = roles.First(r => r.Name == "Admin").Id,
+                    UserId = users.First(u => u.UserName == "ulvim9").Id
+                },
+                  new IdentityUserRole<string>
+                {
+                    RoleId = roles.First(r => r.Name == "Member").Id,
                     UserId = users.First(u => u.UserName == "ulvim9").Id
                 },
                  new IdentityUserRole<string>

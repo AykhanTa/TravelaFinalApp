@@ -33,7 +33,7 @@ namespace TravelaFinalApp.Application.Dtos.UserDtos
                 .MinimumLength(6)
                 .MaximumLength(20);
 
-            RuleFor(r => r.Password)
+            RuleFor(r => r.RePassword)
                 .NotEmpty()
                 .MinimumLength(6)
                 .MaximumLength(20);

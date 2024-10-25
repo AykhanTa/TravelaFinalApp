@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
 using TravelaFinalApp.Application.Interfaces;
-using TravelaFinalApp.Persistence.Implementations;
 
 namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
@@ -23,15 +21,19 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             await aboutService.DeleteAsync(id);
-            return Ok();
+            return Ok(new { Response = "Data deleted successfully" });
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id,AboutUpdateDto aboutUpdateDto)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             await aboutService.UpdateAsync(id, aboutUpdateDto);
-            return Ok();
+            return Ok(new { Response = "Data updated successfully" });
         }
 
         [HttpGet("")]
@@ -43,6 +45,8 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             return Ok(_mapper.Map<AboutReturnDto>(await aboutService.GetByIdAsync(id)));
         }
 

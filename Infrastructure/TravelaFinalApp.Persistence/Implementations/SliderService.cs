@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
+using TravelaFinalApp.Application.Exceptions;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
@@ -9,23 +10,22 @@ namespace TravelaFinalApp.Persistence.Implementations
 {
     public class SliderService(ISliderRepository sliderRepository,IMapper _mapper) : ISliderService
     {
-        public async Task<int> CreateAsync(SliderCreateDto sliderCreateDto)
+        public async Task CreateAsync(SliderCreateDto sliderCreateDto)
         {
             var slider = _mapper.Map<Slider>(sliderCreateDto);
             slider.CreateDate=DateTime.Now;
             await sliderRepository.CreateAsync(slider);
             await sliderRepository.SaveChangesAsync();
-            return 1;
+
         }
 
-        public async Task<int> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var existSlider=await sliderRepository.GetEntityAsync(s => !s.IsDeleted && s.Id == id);
             if (existSlider == null)
-                return 0;
+                throw new CustomException(404, "Id", "Data not found");
             existSlider.IsDeleted = true;
             await sliderRepository.SaveChangesAsync();
-            return existSlider.Id;
         }
 
         public async Task<List<Slider>> GetAllAsync()
@@ -35,20 +35,22 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         public async Task<Slider> GetByIdAsync(int id)
         {
-           return await sliderRepository.GetByIdAsync(id);
+            var existSlider = await sliderRepository.GetByIdAsync(id);
+            if (existSlider == null)
+                throw new CustomException(404, "Id", "Data not found");
+           return existSlider;
         }
 
-        public async Task<int> UpdateAsync(int id,SliderUpdateDto sliderUpdateDto)
+        public async Task UpdateAsync(int id,SliderUpdateDto sliderUpdateDto)
         {
             var existSlider = await sliderRepository.GetEntityAsync(s => s.Id == id && !s.IsDeleted);
-            if (existSlider==null)
-                return 0;
+            if (existSlider == null)
+                throw new CustomException(404,"Id", "Data not found");
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", existSlider.Image);
             FileHelper.DeleteFileFromRoute(path);
             _mapper.Map(sliderUpdateDto, existSlider);
             await sliderRepository.UpdateAsync(existSlider);
             await sliderRepository.SaveChangesAsync();
-            return existSlider.Id;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TravelaFinalApp.Application.Dtos.CategoryDtos;
 using TravelaFinalApp.Application.Interfaces;
 
@@ -6,6 +7,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
     [Route("api/admin/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class CategoryController(ICategoryService categoryService) : ControllerBase
     {
         [HttpPost("")]

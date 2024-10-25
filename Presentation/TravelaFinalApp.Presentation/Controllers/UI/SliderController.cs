@@ -18,7 +18,9 @@ namespace TravelaFinalApp.Presentation.Controllers.UI
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(_mapper.Map<SliderReturnDto>(await sliderService.GetByIdAsync(id)));
+            if(id>0)
+                return Ok(_mapper.Map<SliderReturnDto>(await sliderService.GetByIdAsync(id)));
+            return BadRequest("Id can't be zero or negative");
         }
 
         

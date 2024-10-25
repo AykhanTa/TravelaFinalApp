@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using TravelaFinalApp.Application.Dtos.AboutDtos;
 using TravelaFinalApp.Application.Dtos.BlogDtos;
 using TravelaFinalApp.Application.Dtos.CategoryDtos;
+using TravelaFinalApp.Application.Dtos.ContactDtos;
 using TravelaFinalApp.Application.Dtos.DestinationDtos;
+using TravelaFinalApp.Application.Dtos.GetAppointmentDtos;
 using TravelaFinalApp.Application.Dtos.GuideDtos;
 using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
 using TravelaFinalApp.Application.Dtos.PackageDtos;
@@ -121,6 +123,14 @@ namespace TravelaFinalApp.Application.Profiles
 
             CreateMap<Subscribe,SubscribeReturnDto>();
 
+            //contact
+            CreateMap<Contact, ContactReturnDto>();
+            CreateMap<ContactCreateDto, Contact>();
+
+            //getAppointment
+            CreateMap<GetAppointmentCreateDto, GetAppointment>();
+            CreateMap<GetAppointment,GetAppointmentReturnDto>();
+
             //category
             CreateMap<CategoryCreateDto,Category>()
                 .ForMember(d => d.Image, map => map.MapFrom(d => d.File.Save(Directory.GetCurrentDirectory(), "images")));
@@ -135,27 +145,27 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<Destination,DestinationInTourReturnDto>();
 
             CreateMap<Tour, TourReturnDto>()
-                .ForMember(d => d.Categories, opt => opt.MapFrom(s => s.TourCategories.Select(c => new CategoryReturnDto
+                .ForMember(d => d.Categories, opt => opt.MapFrom(s => s.TourCategories.Select(c => new CategoryInTourReturnDto
                 {
-                    Id = c.Id,
+                    Id = c.CategoryId,
                     Name = c.Category.Name
                 })))
                   .ForMember(d => d.Destination, opt => opt.MapFrom(s => s.Destination))
                   .ForMember(d => d.MainImage, opt => opt.MapFrom(cd => Path.Combine("http://localhost:5039", "images", cd.TourImages.FirstOrDefault(m => m.IsMain).Name)));
 
             CreateMap<Tour, TourDetailDto>()
-                .ForMember(d => d.Categories, opt => opt.MapFrom(s => s.TourCategories.Select(c => new CategoryReturnDto
+                .ForMember(d => d.Categories, opt => opt.MapFrom(s => s.TourCategories.Select(c => new CategoryInTourDetailDto
                 {
-                    Id = c.Id,
+                    Id = c.CategoryId,
                     Name = c.Category.Name
                 })))
                   .ForMember(d => d.Destination, opt => opt.MapFrom(s => s.Destination))
-                  .ForMember(d => d.TourImages, opt => opt.MapFrom(s => s.TourImages.Select(img => new TourImage
+                  .ForMember(d => d.TourImages, opt => opt.MapFrom(s => s.TourImages.Select(img => new TourImageInTourDetailDto
                   {
+                      Id= img.Id,
                       Name = Path.Combine("http://localhost:5039", "images", img.Name),
                       IsMain = img.IsMain
                   }).ToList()));
-
             CreateMap<TourCreateDto,Tour>();
 
             CreateMap<TourUpdateDto, Tour>();
@@ -164,6 +174,7 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<Package, PackageReturnDto>();
             CreateMap<Destination, DestinationInPackageReturnDto>();
 
+            CreateMap<PackageUpdateDto, Package>();
 
             CreateMap<PackageCreateDto, Package>();
 

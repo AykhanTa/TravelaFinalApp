@@ -7,8 +7,8 @@ namespace TravelaFinalApp.Application.Interfaces
     {
         Task<List<Slider>> GetAllAsync();
         Task<Slider> GetByIdAsync(int id);
-        Task<int> CreateAsync(SliderCreateDto sliderCreateDto);
-        Task<int> DeleteAsync(int id);
-        Task<int> UpdateAsync(int id,SliderUpdateDto sliderUpdateDto);
+        Task CreateAsync(SliderCreateDto sliderCreateDto);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(int id,SliderUpdateDto sliderUpdateDto);
     }
 }

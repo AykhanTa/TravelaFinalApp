@@ -18,7 +18,9 @@ namespace TravelaFinalApp.Presentation.Controllers.UI
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            return Ok(await tourService.GetByIdAsync(id));
+            if(id>0)
+                return Ok(await tourService.GetByIdAsync(id));
+            return BadRequest("Id can't be zero or negative");
         }
     }
 }

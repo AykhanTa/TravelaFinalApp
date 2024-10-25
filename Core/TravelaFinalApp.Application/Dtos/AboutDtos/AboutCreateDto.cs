@@ -23,7 +23,7 @@ namespace TravelaFinalApp.Application.Dtos.AboutDtos
             RuleFor(a => a.Description)
                 .NotEmpty()
                 .MinimumLength(30)
-                .MaximumLength(150)
+                .MaximumLength(200)
                 .Must(ValidatorExtension.NotContainOnlyNumbers).WithMessage("Description can not be only numbers..");
 
             RuleFor(a => a)

@@ -18,8 +18,10 @@ namespace TravelaFinalApp.Application.Dtos.TourDtos
         public int DestinationId { get; set; }
         public required List<int> CategoryIds { get; set; }
 
-        [SwaggerSchema(ReadOnly = true)]
         public List<IFormFile> UploadImages { get; set; }
+
+        [SwaggerSchema(ReadOnly = true)]
+        public List<TourImage>? TourImages { get; set; }
     }
     public class TourCreateDtoValidator : AbstractValidator<TourCreateDto>
     {
@@ -35,7 +37,6 @@ namespace TravelaFinalApp.Application.Dtos.TourDtos
                 .InclusiveBetween(1,9999);
 
             RuleFor(s => s.DiscountPercent)
-                .NotEmpty()
                 .InclusiveBetween(0, 100);
 
             RuleFor(s => s.Content)

@@ -12,9 +12,11 @@ namespace TravelaFinalApp.Persistence.Implementations
     {
         public async Task CreateAsync(GuideSocialCreateDto guideSocialCreateDto)
         {
+            if (guideSocialCreateDto.GuideId <= 0)
+                throw new CustomException(400, "GuideId", "GuideId can't be zero or negative");
             var data = await guideRepository.GetByIdAsync(guideSocialCreateDto.GuideId);
             if (data == null)
-                throw new CustomException("GuideId", "Guide not found");
+                throw new CustomException(404,"GuideId", "Guide not found");
             var guideSocial=_mapper.Map<GuideSocial>(guideSocialCreateDto);
             await guideSocialRepository.CreateAsync(guideSocial);
             await guideSocialRepository.SaveChangesAsync();
@@ -24,7 +26,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existSocial = await guideSocialRepository.GetByIdAsync(id);
             if (existSocial == null)
-                throw new CustomException("Id", "Data not found..");
+                throw new CustomException(404,"Id", "Data not found..");
             existSocial.IsDeleted = true;
             await guideSocialRepository.SaveChangesAsync();
         }
@@ -38,7 +40,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existSocial = await guideSocialRepository.GetByIdAsync(id);
             if (existSocial == null)
-                throw new CustomException("Id", "Data not found..");
+                throw new CustomException(404,"Id", "Data not found..");
             _mapper.Map(guideSocialUpdateDto,existSocial);
             await guideSocialRepository.UpdateAsync(existSocial);
             await guideSocialRepository.SaveChangesAsync();

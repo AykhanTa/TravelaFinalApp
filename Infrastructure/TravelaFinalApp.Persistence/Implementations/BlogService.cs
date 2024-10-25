@@ -23,20 +23,19 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existBlog = await blogRepository.GetByIdAsync(id);
             if (existBlog == null)
-                throw new CustomException("Id", "Blog not found.");
+                throw new CustomException(404, "Id", "Data not found");
             existBlog.IsDeleted = true;
             await blogRepository.SaveChangesAsync();
         }      
                
         public async Task<BlogListDto> GetAllAsync(int page = 1, string search = null)
         {
-            var query=_context.Blogs.AsQueryable();
+            var query=_context.Blogs.Where(b=>!b.IsDeleted).AsQueryable();
             if(search != null)
                 query=query.Where(b=>b.Title.Contains(search));
             var datas = await query
                 .Skip((page - 1) * 3)
                 .Take(3)
-                .Where(t => !t.IsDeleted)
                 .ToListAsync();
             var totalCount=await query.CountAsync();
 
@@ -49,14 +48,17 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         public async Task<BlogReturnDto> GetByIdAsync(int id)
         {
-            return _mapper.Map<BlogReturnDto>(await blogRepository.GetByIdAsync(id));
+            var existBlog = await blogRepository.GetByIdAsync(id);
+            if (existBlog == null)
+                throw new CustomException(404, "Id", "Blog is not found..");
+            return _mapper.Map<BlogReturnDto>(existBlog);
         }
 
         public async Task UpdateAsync(int id,BlogUpdateDto blogUpdateDto)
         {
             var existBlog = await blogRepository.GetByIdAsync(id);
             if (existBlog == null)
-                throw new NullReferenceException("Blog is not found..");
+                throw new CustomException(404,"Id","Blog is not found..");
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", existBlog.Image);
             FileHelper.DeleteFileFromRoute(path);
             _mapper.Map(blogUpdateDto,existBlog);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
 using TravelaFinalApp.Application.Interfaces;
@@ -7,6 +8,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
     [Route("api/admin/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class GuideSocialController(IGuideSocialService guideSocialService) : ControllerBase
     {
         [HttpPost("")]
@@ -20,6 +22,8 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute]int id,[FromBody]GuideSocialUpdateDto dto)
         {
+            if (id <= 0)
+                return BadRequest("Id can't be zero or negative");
             await guideSocialService.UpdateAsync(id,dto);
             return Ok(new {Response="Data updated successfully"});
         }

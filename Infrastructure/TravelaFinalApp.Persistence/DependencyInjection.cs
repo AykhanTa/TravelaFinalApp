@@ -18,6 +18,8 @@ namespace TravelaFinalApp.Persistence
             services.AddScoped<IGuideSocialRepository, GuideSocialRepository>();
             services.AddScoped<ISettingRepository, SettingRepository>();
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IGetAppointmentRepository, GetAppointmentRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ITourRepository, TourRepository>();
             services.AddScoped<IPackageRepository, PackageRepository>();

@@ -22,7 +22,8 @@ namespace TravelaFinalApp.Persistence.Implementations
     {
         public async Task<RegisterResponse> SignUpAsync(RegisterDto registerDto)
         {
-            AppUser user = await userManager.FindByNameAsync(registerDto.UserName);
+            AppUser? user = await userManager.FindByNameAsync(registerDto.UserName) ?? 
+                await userManager.FindByEmailAsync(registerDto.Email);
             if (user != null)
                 throw new CustomException("UserName", $"{registerDto.UserName} with userName already exist..");
             user = new()

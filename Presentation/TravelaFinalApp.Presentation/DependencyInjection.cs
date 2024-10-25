@@ -1,11 +1,4 @@
-﻿using FluentValidation.AspNetCore;
-using FluentValidation;
-using TravelaFinalApp.Application.Dtos.AboutDtos;
-using TravelaFinalApp.Application.Dtos.BlogDtos;
-using TravelaFinalApp.Application.Dtos.CategoryDtos;
-using TravelaFinalApp.Application.Dtos.SliderDtos;
-using TravelaFinalApp.Application.Dtos.UserDtos;
-using TravelaFinalApp.Application.Interfaces;
+﻿using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Persistence.Implementations;
 
 namespace TravelaFinalApp.Presentation
@@ -24,6 +17,8 @@ namespace TravelaFinalApp.Presentation
             services.AddScoped<IGuideSocialService, GuideSocialService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISubscribeService, SubscribeService>();
+            services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<IGetAppointmentService, GetAppointmentService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITourService, TourService>();
             services.AddScoped<IPackageService, PackageService>();

@@ -14,12 +14,18 @@ namespace TravelaFinalApp.Application.Dtos.TourDtos
         public int Duration { get; set; }
         public int DestinationId { get; set; }
         public DestinationInTourReturnDto Destination { get; set; }
-        public IEnumerable<CategoryReturnDto> Categories { get; set; }
+        public IEnumerable<CategoryInTourReturnDto> Categories { get; set; }
         public string MainImage { get; set; }
 
+    }
+    public class CategoryInTourReturnDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
     public class DestinationInTourReturnDto
     {
         public string DestinationPlace { get; set; }
     }
+    
 }

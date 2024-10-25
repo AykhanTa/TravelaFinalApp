@@ -33,7 +33,7 @@ namespace TravelaFinalApp.Persistence.Implementations
                 issuer,
               audience,
               claims,
-              expires: DateTime.Now.AddMinutes(5),
+              expires: DateTime.Now.AddMinutes(30),
               signingCredentials: credentials);
 
             return  new JwtSecurityTokenHandler().WriteToken(secToken);

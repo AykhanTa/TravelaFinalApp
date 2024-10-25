@@ -12,7 +12,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         public async Task AddSubscribeAsync(SubscribeCreateDto subscribeCreateDto)
         {
             if (await subscribeRepository.IsExist(s => s.Email == subscribeCreateDto.Email))
-                throw new CustomException("Email", "You are already subscribed..");
+                throw new CustomException(400,"Email", "You are already subscribed..");
             var subscribe = _mapper.Map<Subscribe>(subscribeCreateDto);
             await subscribeRepository.CreateAsync(subscribe);
             await subscribeRepository.SaveChangesAsync();

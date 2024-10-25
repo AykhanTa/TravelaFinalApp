@@ -21,7 +21,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existSetting = await settingRepository.GetByIdAsync(id);
             if (existSetting == null)
-                throw new CustomException("Id", "Data not found..");
+                throw new CustomException(404,"Id", "Data not found..");
             existSetting.IsDeleted = true;
             await settingRepository.SaveChangesAsync();
         }
@@ -35,7 +35,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existSetting=await settingRepository.GetByIdAsync(id);
             if (existSetting == null)
-                throw new CustomException("Id", "Data not found..");
+                throw new CustomException(404,"Id", "Data not found..");
             _mapper.Map(settingUpdateDto,existSetting);
             await settingRepository.UpdateAsync(existSetting);
             await settingRepository.SaveChangesAsync();

@@ -8,14 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
-using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Application.Profiles;
 using TravelaFinalApp.Domain.Entities;
-using TravelaFinalApp.Persistence;
 using TravelaFinalApp.Persistence.Data;
-using TravelaFinalApp.Persistence.Implementations;
-using TravelaFinalApp.Persistence.Repositories;
-using TravelaFinalApp.Persistence.Repositories.Interfaces;
 
 namespace TravelaFinalApp.Presentation
 {
@@ -87,10 +82,11 @@ namespace TravelaFinalApp.Presentation
 
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "JWTToken_Auth_API",
-                    Version = "v1"
+                    Title = "TravelaFinalProject",
+                    Version = "1"
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {

@@ -21,7 +21,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existGuide = await guideRepository.GetEntityAsync(g=>g.Id==id&&!g.IsDeleted,"GuideSocials");
             if (existGuide == null)
-                throw new CustomException("Id", "Guide not found..");
+                throw new CustomException(404, "Id", "Guide not found..");
             existGuide.IsDeleted = true;
             foreach (var social in existGuide.GuideSocials)
             {
@@ -32,19 +32,22 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         public async Task<List<GuideReturnDto>> GetAllAsync()
         {
-            return _mapper.Map<List<GuideReturnDto>>(await guideRepository.GetAllAsync(null,"GuideSocials"));
+            return _mapper.Map<List<GuideReturnDto>>(await guideRepository.GetAllAsync(g=>!g.IsDeleted,"GuideSocials"));
         }
 
         public async Task<GuideReturnDto> GetByIdAsync(int id)
         {
-            return _mapper.Map<GuideReturnDto>(await guideRepository.GetEntityAsync(null,"GuideSocials"));
+            var existGuide = await guideRepository.GetEntityAsync(g=>g.Id==id&&!g.IsDeleted, "GuideSocials");
+            if (existGuide == null)
+                throw new CustomException(404, "Id", "Guide not found..");
+            return _mapper.Map<GuideReturnDto>(existGuide);
         }
 
         public async Task UpdateAsync(int id, GuideUpdateDto guideUpdateDto)
         {
             var existGuide = await guideRepository.GetByIdAsync(id);
             if (existGuide == null)
-                throw new CustomException("Id", "Guide not found..");
+                throw new CustomException(404,"Id", "Guide not found..");
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", existGuide.Image);
             FileHelper.DeleteFileFromRoute(path);
             _mapper.Map(guideUpdateDto,existGuide);

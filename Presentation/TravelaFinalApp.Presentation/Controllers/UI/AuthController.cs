@@ -22,12 +22,6 @@ namespace TravelaFinalApp.Presentation.Controllers.UI
             return Ok(await authService.SignInAsync(loginDto));
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            return Ok(await authService.GetAllUsersAsync());
-        }
-
         [HttpGet]
         public async Task<IActionResult> VerifyEmail(string verifyEmail,string token)
         {

@@ -51,13 +51,13 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8323e845-401d-491d-84fe-976f1775d3eb",
+                            Id = "8635e84e-71d1-4746-bbfb-52e3b4338727",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a8c73aa8-200c-4d3e-83ae-2936ccb43484",
+                            Id = "c5af045a-c2ed-468c-8e9d-3e8df8828083",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         });
@@ -152,13 +152,18 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "d9c7f7d2-a72e-46bb-9d82-65cef9f19aea",
-                            RoleId = "8323e845-401d-491d-84fe-976f1775d3eb"
+                            UserId = "9849a375-cb85-4970-be10-b554712df1f7",
+                            RoleId = "8635e84e-71d1-4746-bbfb-52e3b4338727"
                         },
                         new
                         {
-                            UserId = "5be32b09-65c0-4979-a3dd-7859ff8f6602",
-                            RoleId = "a8c73aa8-200c-4d3e-83ae-2936ccb43484"
+                            UserId = "9849a375-cb85-4970-be10-b554712df1f7",
+                            RoleId = "c5af045a-c2ed-468c-8e9d-3e8df8828083"
+                        },
+                        new
+                        {
+                            UserId = "57df8d70-9d7f-4b0f-8e94-22da9530de68",
+                            RoleId = "c5af045a-c2ed-468c-8e9d-3e8df8828083"
                         });
                 });
 
@@ -287,35 +292,35 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d9c7f7d2-a72e-46bb-9d82-65cef9f19aea",
+                            Id = "9849a375-cb85-4970-be10-b554712df1f7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "16313db6-d8de-4dc9-80dc-8fbb79d6a2ce",
+                            ConcurrencyStamp = "0ae99ee9-e8b7-4d15-8504-68958d938684",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FullName = "Ulvi Majid",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                            NormalizedUserName = "ULVI9",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPuGBa+ADgkZ7Qc4nbIqWF+8NHljQB0jSnFhotFFArxYPNNKNJnBsHAgjhusjA7aPw==",
+                            NormalizedUserName = "ULVIM9",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO81ldxpU0L/49gslO/zRa5DN01ogJji3bsOyCI6q0IzAZGIoN8NINCU6fPSd8SNvA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "23f45b1f-8ffa-4b13-b234-2325903da1bb",
+                            SecurityStamp = "40551428-cdba-4666-a121-b7b79ca192ed",
                             TwoFactorEnabled = false,
                             UserName = "ulvim9"
                         },
                         new
                         {
-                            Id = "5be32b09-65c0-4979-a3dd-7859ff8f6602",
+                            Id = "57df8d70-9d7f-4b0f-8e94-22da9530de68",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d68a8391-f570-44e2-8e5a-e0abe9e447eb",
+                            ConcurrencyStamp = "b764fd4a-ff40-4727-95ef-7628b11a47b9",
                             Email = "user@example.com",
                             EmailConfirmed = true,
                             FullName = "Aykhan Taghizada",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@EXAMPLE.COM",
                             NormalizedUserName = "AYKHANT1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJ7QvlBPmuw4dHdJh0oSrCvZ4bfsnqhp3sL8BQmkd2iAu5NbYDZyiI26Lx0hpupxAw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEAZH6ANDpKMoHQrBbqcidtuslbR+qnPDIwqbt0ozxv/jHAFzkTStLXMv4KKvd37ww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "480403c8-5e28-4dcb-8373-545b055e58f8",
+                            SecurityStamp = "dab762c7-0edf-4bcb-9d3b-c802f77d2034",
                             TwoFactorEnabled = false,
                             UserName = "aykhant1"
                         });
@@ -393,6 +398,53 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("TravelaFinalApp.Domain.Entities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("TravelaFinalApp.Domain.Entities.Destination", b =>
                 {
                     b.Property<int>("Id")
@@ -422,6 +474,62 @@ namespace TravelaFinalApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Destinations");
+                });
+
+            modelBuilder.Entity("TravelaFinalApp.Domain.Entities.GetAppointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("KidsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GetAppointments");
                 });
 
             modelBuilder.Entity("TravelaFinalApp.Domain.Entities.Guide", b =>

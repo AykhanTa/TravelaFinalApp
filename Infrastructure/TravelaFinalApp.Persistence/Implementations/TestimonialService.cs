@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
+using TravelaFinalApp.Application.Exceptions;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
 using TravelaFinalApp.Persistence.Data;
+using TravelaFinalApp.Persistence.Repositories;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
 
 namespace TravelaFinalApp.Persistence.Implementations
@@ -22,20 +24,19 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existTestimonial=await testimonialRepository.GetByIdAsync(id);
             if (existTestimonial == null)
-                throw new NullReferenceException("Testimonial not found");
+                throw new CustomException(404, "Id", "Data not found..");
             existTestimonial.IsDeleted= true;   
             await testimonialRepository.SaveChangesAsync();
         }
 
         public async Task<TestimonialListDto> GetAllAsync(int page = 1, string search = null)
         {
-            var query = _context.Testimonials.AsQueryable();
+            var query = _context.Testimonials.Where(t=>!t.IsDeleted).AsQueryable();
             if (search != null)
                 query = query.Where(b => b.FullName.Contains(search));
             var datas = await query
                 .Skip((page - 1) * 3)
                 .Take(3)
-                .Where(t=>!t.IsDeleted)
                 .ToListAsync();
             var totalCount = await query.CountAsync();
 
@@ -49,14 +50,17 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         public async Task<TestimonialReturnDto> GetByIdAsync(int id)
         {
-            return _mapper.Map<TestimonialReturnDto>(await testimonialRepository.GetByIdAsync(id));
+            var existTestimonial = await testimonialRepository.GetByIdAsync(id);
+            if (existTestimonial == null)
+                throw new CustomException(404, "Id", "Data not found.");
+            return _mapper.Map<TestimonialReturnDto>(existTestimonial);
         }
 
         public async Task UpdateAsync(int id, TestimonialUpdateDto testimonialUpdateDto)
         {
             var existTestimonial = await testimonialRepository.GetByIdAsync(id);
             if (existTestimonial == null)
-                throw new NullReferenceException("Testimonial not found");
+                throw new CustomException(404, "Id", "Data not found..");
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", existTestimonial.Image);
             FileHelper.DeleteFileFromRoute(path);
             _mapper.Map(testimonialUpdateDto, existTestimonial);

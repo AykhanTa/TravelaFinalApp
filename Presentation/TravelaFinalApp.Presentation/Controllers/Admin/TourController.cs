@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelaFinalApp.Application.Dtos.TourDtos;
 using TravelaFinalApp.Application.Interfaces;
@@ -7,6 +8,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
     [Route("api/admin/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class TourController(ITourService tourService) : ControllerBase
     {
         [HttpPost("")]

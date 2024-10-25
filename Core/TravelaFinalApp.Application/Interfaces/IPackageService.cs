@@ -9,6 +9,6 @@ namespace TravelaFinalApp.Application.Interfaces
         Task<PackageReturnDto> GetByIdAsync(int id);
         Task CreateAsync(PackageCreateDto packageCreateDto);
         Task DeleteAsync(int id);
-        Task UpdateAsync(int id);
+        Task UpdateAsync(int id,PackageUpdateDto packageUpdateDto);
     }
 }
