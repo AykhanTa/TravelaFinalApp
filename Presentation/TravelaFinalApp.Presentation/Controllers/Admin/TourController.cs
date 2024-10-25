@@ -31,9 +31,9 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page,string? search)
         {
-            return Ok(await tourService.GetAllAsync());
+            return Ok(await tourService.GetAllAsync(page,search));
         }
 
         [HttpGet("{id}")]

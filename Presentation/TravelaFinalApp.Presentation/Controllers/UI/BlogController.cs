@@ -9,9 +9,9 @@ namespace TravelaFinalApp.Presentation.Controllers.UI
     public class BlogController(IBlogService blogService) : ControllerBase
     {
         [HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page,string? search)
         {
-            return Ok(await blogService.GetAllAsync());
+            return Ok(await blogService.GetAllAsync(page,search));
         }
 
         [HttpGet("{id}")]

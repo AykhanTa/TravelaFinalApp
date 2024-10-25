@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TravelaFinalApp.Application.Dtos.TourDtos;
 using TravelaFinalApp.Application.Exceptions;
 using TravelaFinalApp.Application.Extensions;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
+using TravelaFinalApp.Persistence.Data;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
 
 namespace TravelaFinalApp.Persistence.Implementations
@@ -14,7 +16,8 @@ namespace TravelaFinalApp.Persistence.Implementations
         ICategoryRepository categoryRepository,
         ITourCategoryRepository tourCategoryRepository,
         ITourImageRepository tourImageRepository,
-        IMapper _mapper) : ITourService
+        IMapper _mapper,
+        TravelaDbContext _context) : ITourService
     {
         public async Task CreateAsync(TourCreateDto tourCreateDto)
         {
@@ -77,9 +80,27 @@ namespace TravelaFinalApp.Persistence.Implementations
             await tourImageRepository.SaveChangesAsync();
         }
 
-        public async Task<List<TourReturnDto>> GetAllAsync()
+        public async Task<TourListDto> GetAllAsync(int page = 1, string? search = null)
         {
-            return _mapper.Map<List<TourReturnDto>>(await tourRepository.GetAllWithIncludesAsync());
+            var query = _context.Tours.AsQueryable().Where(t=>!t.IsDeleted);
+            if (search != null)
+                query = query.Where(t => t.Place.Contains(search)&&!t.IsDeleted);
+            var datas = await query
+                .Include(t=>t.TourCategories).ThenInclude(m=>m.Category)
+                .Include(t=>t.Destination)
+                .Skip((page - 1) * 3)
+                .Take(3)
+                .Where(t => !t.IsDeleted)
+                .ToListAsync();
+            var totalCount = await query.CountAsync();
+
+            TourListDto tourListDto = new();
+            tourListDto.TotalCount=totalCount;
+            tourListDto.CurrentPage=page;
+            tourListDto.Tours = _mapper.Map<List<TourReturnDto>>(datas);
+
+            return tourListDto;
+
         }
 
         public async Task<TourReturnDto> GetByIdAsync(int id)

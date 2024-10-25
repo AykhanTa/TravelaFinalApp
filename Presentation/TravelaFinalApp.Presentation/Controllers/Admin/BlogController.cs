@@ -33,7 +33,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page, string? search)
         {
             return Ok(await blogService.GetAllAsync());
         }

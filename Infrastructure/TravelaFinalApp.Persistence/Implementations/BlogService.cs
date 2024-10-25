@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TravelaFinalApp.Application.Dtos.BlogDtos;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
+using TravelaFinalApp.Persistence.Data;
 using TravelaFinalApp.Persistence.Repositories.Interfaces;
 
 namespace TravelaFinalApp.Persistence.Implementations
 {
-    public class BlogService(IBlogRepository blogRepository,IMapper _mapper) : IBlogService
+    public class BlogService(IBlogRepository blogRepository,TravelaDbContext _context,IMapper _mapper) : IBlogService
     {
         public async Task CreateAsync(BlogCreateDto dto)
         {      
@@ -25,9 +27,23 @@ namespace TravelaFinalApp.Persistence.Implementations
             await blogRepository.SaveChangesAsync();
         }      
                
-        public async Task<List<BlogReturnDto>> GetAllAsync()
+        public async Task<BlogListDto> GetAllAsync(int page = 1, string search = null)
         {
-            return  _mapper.Map<List<BlogReturnDto>>(await blogRepository.GetAllAsync(b=>!b.IsDeleted));
+            var query=_context.Blogs.AsQueryable();
+            if(search != null)
+                query=query.Where(b=>b.Title.Contains(search));
+            var datas = await query
+                .Skip((page - 1) * 3)
+                .Take(3)
+                .Where(t => !t.IsDeleted)
+                .ToListAsync();
+            var totalCount=await query.CountAsync();
+
+            BlogListDto blogListDto = new();
+            blogListDto.TotalCount = totalCount;
+            blogListDto.CurrentPage=page;
+            blogListDto.Blogs=_mapper.Map<List<BlogReturnDto>>(datas);
+            return  blogListDto;
         }
 
         public async Task<BlogReturnDto> GetByIdAsync(int id)

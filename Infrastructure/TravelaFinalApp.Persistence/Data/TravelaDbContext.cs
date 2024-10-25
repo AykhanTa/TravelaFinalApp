@@ -22,6 +22,8 @@ namespace TravelaFinalApp.Persistence.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<TourCategory> TourCategories { get; set; }
         public DbSet<TourImage> TourImages { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<PackageImage> PackageImages { get; set; }
 
         public TravelaDbContext(DbContextOptions<TravelaDbContext> options) : base(options)
         {

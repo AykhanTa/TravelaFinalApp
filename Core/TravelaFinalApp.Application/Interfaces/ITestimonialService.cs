@@ -5,7 +5,7 @@ namespace TravelaFinalApp.Application.Interfaces
 {
     public interface ITestimonialService
     {
-        Task<List<TestimonialReturnDto>> GetAllAsync();
+        Task<TestimonialListDto> GetAllAsync(int page=1,string search=null);
         Task<TestimonialReturnDto> GetByIdAsync(int id);
         Task CreateAsync(TestimonialCreateDto testimonialCreateDto);
         Task DeleteAsync(int id);

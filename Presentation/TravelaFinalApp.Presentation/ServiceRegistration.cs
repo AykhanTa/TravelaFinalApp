@@ -49,6 +49,7 @@ namespace TravelaFinalApp.Presentation
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITourService, TourService>();
+            services.AddScoped<IPackageService, PackageService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IEmailService, EmailService>();
 
@@ -78,6 +79,8 @@ namespace TravelaFinalApp.Presentation
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ITourRepository, TourRepository>();
+            services.AddScoped<IPackageRepository, PackageRepository>();
+            services.AddScoped<IPackageImageRepository, PackageImageRepository>();
             services.AddScoped<ITourCategoryRepository, TourCategoryRepository>();
             services.AddScoped<ITourImageRepository, TourImageRepository>();
 

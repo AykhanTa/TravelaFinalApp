@@ -5,7 +5,7 @@ namespace TravelaFinalApp.Application.Interfaces
 {
     public interface IBlogService
     {
-        Task<List<BlogReturnDto>> GetAllAsync();
+        Task<BlogListDto> GetAllAsync(int page=1,string search=null);
         Task<BlogReturnDto> GetByIdAsync(int id);
         Task CreateAsync(BlogCreateDto blogCreateDto);
         Task DeleteAsync(int id);

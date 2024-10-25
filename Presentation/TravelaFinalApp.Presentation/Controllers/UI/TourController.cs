@@ -10,9 +10,9 @@ namespace TravelaFinalApp.Presentation.Controllers.UI
     public class TourController(ITourService tourService) : ControllerBase
     {
         [HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page, string? search)
         {
-            return Ok(await tourService.GetAllAsync());
+            return Ok(await tourService.GetAllAsync(page, search));
         }
 
         [HttpGet("{id}")]

@@ -6,6 +6,7 @@ using TravelaFinalApp.Application.Dtos.CategoryDtos;
 using TravelaFinalApp.Application.Dtos.DestinationDtos;
 using TravelaFinalApp.Application.Dtos.GuideDtos;
 using TravelaFinalApp.Application.Dtos.GuideSocialDtos;
+using TravelaFinalApp.Application.Dtos.PackageDtos;
 using TravelaFinalApp.Application.Dtos.ServiceDtos;
 using TravelaFinalApp.Application.Dtos.SettingDtos;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
@@ -138,11 +139,21 @@ namespace TravelaFinalApp.Application.Profiles
                 {
                     Id = c.Id,
                     Name = c.Category.Name
-                })));
+                })))
+                  .ForMember(d => d.Destination, opt => opt.MapFrom(s => s.Destination));
+
 
             CreateMap<TourCreateDto,Tour>();
 
             CreateMap<TourUpdateDto, Tour>();
+
+            //package
+            CreateMap<Package, PackageReturnDto>();
+            CreateMap<Destination, DestinationInPackageReturnDto>();
+
+
+            CreateMap<PackageCreateDto, Package>();
+
 
             //user
             CreateMap<AppUser,UserDto>();
