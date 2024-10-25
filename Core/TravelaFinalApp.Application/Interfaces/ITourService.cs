@@ -5,7 +5,7 @@ namespace TravelaFinalApp.Application.Interfaces
     public interface ITourService
     {
         Task<TourListDto> GetAllAsync(int page=1,string? search=null);
-        Task<TourReturnDto> GetByIdAsync(int id);
+        Task<TourDetailDto> GetByIdAsync(int id);
         Task CreateAsync(TourCreateDto tourCreateDto);
         Task DeleteAsync(int id);
         Task UpdateAsync(int id,TourUpdateDto tourUpdateDto);

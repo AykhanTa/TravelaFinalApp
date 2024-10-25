@@ -1,3 +1,4 @@
+using TravelaFinalApp.Persistence;
 using TravelaFinalApp.Presentation;
 using TravelaFinalApp.Presentation.Middlewares;
 
@@ -6,6 +7,10 @@ var config = builder.Configuration;
 // Add services to the container.
 
 builder.Services.Register(config);
+
+builder.Services.AddRepositoryLayer();
+
+builder.Services.AddServiceLayer();
 
 var app = builder.Build();
 

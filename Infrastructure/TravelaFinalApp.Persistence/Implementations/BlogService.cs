@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TravelaFinalApp.Application.Dtos.BlogDtos;
+using TravelaFinalApp.Application.Exceptions;
 using TravelaFinalApp.Application.Helpers;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Domain.Entities;
@@ -22,7 +23,7 @@ namespace TravelaFinalApp.Persistence.Implementations
         {
             var existBlog = await blogRepository.GetByIdAsync(id);
             if (existBlog == null)
-                throw new NullReferenceException("Blog is not found..");
+                throw new CustomException("Id", "Blog not found.");
             existBlog.IsDeleted = true;
             await blogRepository.SaveChangesAsync();
         }      

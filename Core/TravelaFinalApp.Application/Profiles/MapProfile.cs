@@ -140,8 +140,21 @@ namespace TravelaFinalApp.Application.Profiles
                     Id = c.Id,
                     Name = c.Category.Name
                 })))
-                  .ForMember(d => d.Destination, opt => opt.MapFrom(s => s.Destination));
+                  .ForMember(d => d.Destination, opt => opt.MapFrom(s => s.Destination))
+                  .ForMember(d => d.MainImage, opt => opt.MapFrom(cd => Path.Combine("http://localhost:5039", "images", cd.TourImages.FirstOrDefault(m => m.IsMain).Name)));
 
+            CreateMap<Tour, TourDetailDto>()
+                .ForMember(d => d.Categories, opt => opt.MapFrom(s => s.TourCategories.Select(c => new CategoryReturnDto
+                {
+                    Id = c.Id,
+                    Name = c.Category.Name
+                })))
+                  .ForMember(d => d.Destination, opt => opt.MapFrom(s => s.Destination))
+                  .ForMember(d => d.TourImages, opt => opt.MapFrom(s => s.TourImages.Select(img => new TourImage
+                  {
+                      Name = Path.Combine("http://localhost:5039", "images", img.Name),
+                      IsMain = img.IsMain
+                  }).ToList()));
 
             CreateMap<TourCreateDto,Tour>();
 

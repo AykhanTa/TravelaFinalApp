@@ -88,6 +88,7 @@ namespace TravelaFinalApp.Persistence.Implementations
             var datas = await query
                 .Include(t=>t.TourCategories).ThenInclude(m=>m.Category)
                 .Include(t=>t.Destination)
+                .Include(t=>t.TourImages)
                 .Skip((page - 1) * 3)
                 .Take(3)
                 .Where(t => !t.IsDeleted)
@@ -103,12 +104,12 @@ namespace TravelaFinalApp.Persistence.Implementations
 
         }
 
-        public async Task<TourReturnDto> GetByIdAsync(int id)
+        public async Task<TourDetailDto> GetByIdAsync(int id)
         {
             var existTour=await tourRepository.GetByIdWithIncludesAsync(id);
             if (existTour == null)
                 throw new CustomException("Id", "Tour can't be found..");
-            return  _mapper.Map<TourReturnDto>(existTour);
+            return  _mapper.Map<TourDetailDto>(existTour);
         }
 
         public async Task UpdateAsync(int id, TourUpdateDto tourUpdateDto)

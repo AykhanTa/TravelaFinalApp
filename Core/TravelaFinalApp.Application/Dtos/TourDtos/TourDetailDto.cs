@@ -3,7 +3,7 @@ using TravelaFinalApp.Domain.Entities;
 
 namespace TravelaFinalApp.Application.Dtos.TourDtos
 {
-    public class TourReturnDto
+    public class TourDetailDto
     {
         public int Id { get; set; }
         public string Place { get; set; }
@@ -15,11 +15,6 @@ namespace TravelaFinalApp.Application.Dtos.TourDtos
         public int DestinationId { get; set; }
         public DestinationInTourReturnDto Destination { get; set; }
         public IEnumerable<CategoryReturnDto> Categories { get; set; }
-        public string MainImage { get; set; }
-
-    }
-    public class DestinationInTourReturnDto
-    {
-        public string DestinationPlace { get; set; }
+        public IEnumerable<TourImage> TourImages { get; set; }
     }
 }

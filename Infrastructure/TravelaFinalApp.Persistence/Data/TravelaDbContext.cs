@@ -54,7 +54,7 @@ namespace TravelaFinalApp.Persistence.Data
                     FullName="Ulvi Majid",
                     UserName = "ulvim9",
                     Email = "admin@example.com",
-                    NormalizedUserName = "ULVI9",
+                    NormalizedUserName = "ULVIM9",
                     NormalizedEmail = "ADMIN@EXAMPLE.COM",
                     PasswordHash = hasher.HashPassword(null, "Ulvi123!"),
                     EmailConfirmed = true,

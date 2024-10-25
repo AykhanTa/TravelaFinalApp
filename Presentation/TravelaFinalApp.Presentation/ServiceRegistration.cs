@@ -3,8 +3,6 @@ using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -13,6 +11,7 @@ using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Application.Profiles;
 using TravelaFinalApp.Domain.Entities;
+using TravelaFinalApp.Persistence;
 using TravelaFinalApp.Persistence.Data;
 using TravelaFinalApp.Persistence.Implementations;
 using TravelaFinalApp.Persistence.Repositories;
@@ -36,24 +35,7 @@ namespace TravelaFinalApp.Presentation
 
             services.AddHttpContextAccessor();
 
-            //services
-            services.AddScoped<ISliderService, SliderService>();
-            services.AddScoped<IAboutService, AboutService>();
-            services.AddScoped<IServiceService, ServiceService>();
-            services.AddScoped<ITestimonialService, TestimonialService>();
-            services.AddScoped<IBlogService, BlogService>();
-            services.AddScoped<IDestinationService, DestinationService>();
-            services.AddScoped<IGuideService, GuideService>();
-            services.AddScoped<IGuideSocialService, GuideSocialService>();
-            services.AddScoped<ISettingService, SettingService>();
-            services.AddScoped<ISubscribeService, SubscribeService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ITourService, TourService>();
-            services.AddScoped<IPackageService, PackageService>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IEmailService, EmailService>();
 
-            services.AddScoped<IAuthService, AuthService>();
 
 
             services.AddFluentValidationAutoValidation();
@@ -65,24 +47,6 @@ namespace TravelaFinalApp.Presentation
 
             services.AddHttpContextAccessor();
 
-
-            //repos
-            services.AddScoped<ISliderRepository, SliderRepository>();
-            services.AddScoped<IAboutRepository, AboutRepository>();
-            services.AddScoped<IServiceRepository, ServiceRepository>();
-            services.AddScoped<ITestimonialRepository, TestimonialRepository>();
-            services.AddScoped<IBlogRepository, BlogRepository>();
-            services.AddScoped<IDestinationRepository, DestinationRepository>();
-            services.AddScoped<IGuideRepository, GuideRepository>();
-            services.AddScoped<IGuideSocialRepository, GuideSocialRepository>();
-            services.AddScoped<ISettingRepository, SettingRepository>();
-            services.AddScoped<ISubscribeRepository, SubscribeRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ITourRepository, TourRepository>();
-            services.AddScoped<IPackageRepository, PackageRepository>();
-            services.AddScoped<IPackageImageRepository, PackageImageRepository>();
-            services.AddScoped<ITourCategoryRepository, TourCategoryRepository>();
-            services.AddScoped<ITourImageRepository, TourImageRepository>();
 
             services.AddAutoMapper(opt =>
             {
