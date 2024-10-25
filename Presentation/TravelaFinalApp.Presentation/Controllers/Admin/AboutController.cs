@@ -10,7 +10,7 @@ namespace TravelaFinalApp.Presentation.Controllers.Admin
 {
     [Route("api/admin/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class AboutController(IAboutService aboutService,IMapper _mapper) : ControllerBase
     {
         [HttpPost("")]

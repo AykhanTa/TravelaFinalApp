@@ -1,18 +1,5 @@
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using TravelaFinalApp.Application.Interfaces;
-using TravelaFinalApp.Application.Profiles;
-using TravelaFinalApp.Persistence.Data;
-using TravelaFinalApp.Persistence.Implementations;
-using TravelaFinalApp.Application.Dtos.SliderDtos;
-using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using TravelaFinalApp.Persistence.Repositories.Interfaces;
-using TravelaFinalApp.Persistence.Repositories;
-using TravelaFinalApp.Presentation.Middlewares;
-using TravelaFinalApp.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using TravelaFinalApp.Presentation;
+using TravelaFinalApp.Presentation.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;

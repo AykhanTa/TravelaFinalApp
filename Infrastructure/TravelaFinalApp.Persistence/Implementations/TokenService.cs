@@ -25,7 +25,7 @@ namespace TravelaFinalApp.Persistence.Implementations
                 new Claim(ClaimTypes.Email,user.Email),
 
             };
-            claims.AddRange(userRoles.Select(r => new Claim("Role", r)).ToList());
+            claims.AddRange(userRoles.Select(r => new Claim(ClaimTypes.Role, r)).ToList());
             var audience = config.GetSection("Jwt:Audience").Value;
             var issuer = config.GetSection("Jwt:Issuer").Value;
 

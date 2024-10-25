@@ -12,6 +12,7 @@ using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Dtos.SubscribeDtos;
 using TravelaFinalApp.Application.Dtos.TestimonialDtos;
 using TravelaFinalApp.Application.Dtos.TourDtos;
+using TravelaFinalApp.Application.Dtos.UserDtos;
 using TravelaFinalApp.Application.Extensions;
 using TravelaFinalApp.Domain.Entities;
 
@@ -142,6 +143,9 @@ namespace TravelaFinalApp.Application.Profiles
             CreateMap<TourCreateDto,Tour>();
 
             CreateMap<TourUpdateDto, Tour>();
+
+            //user
+            CreateMap<AppUser,UserDto>();
         }
     } 
 }

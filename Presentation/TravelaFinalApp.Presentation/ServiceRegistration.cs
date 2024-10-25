@@ -1,21 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 using TravelaFinalApp.Application.Dtos.SliderDtos;
 using TravelaFinalApp.Application.Interfaces;
 using TravelaFinalApp.Application.Profiles;
 using TravelaFinalApp.Domain.Entities;
 using TravelaFinalApp.Persistence.Data;
 using TravelaFinalApp.Persistence.Implementations;
-using TravelaFinalApp.Persistence.Repositories.Interfaces;
 using TravelaFinalApp.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using TravelaFinalApp.Persistence.Repositories.Interfaces;
 
 namespace TravelaFinalApp.Presentation
 {
@@ -33,6 +34,8 @@ namespace TravelaFinalApp.Presentation
                 opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddHttpContextAccessor();
+
             //services
             services.AddScoped<ISliderService, SliderService>();
             services.AddScoped<IAboutService, AboutService>();
@@ -47,6 +50,7 @@ namespace TravelaFinalApp.Presentation
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITourService, TourService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddScoped<IAuthService, AuthService>();
 
@@ -58,8 +62,8 @@ namespace TravelaFinalApp.Presentation
 
             services.AddFluentValidationRulesToSwagger();
 
-
             services.AddHttpContextAccessor();
+
 
             //repos
             services.AddScoped<ISliderRepository, SliderRepository>();
@@ -89,6 +93,8 @@ namespace TravelaFinalApp.Presentation
                 opt.Password.RequireUppercase = true;
                 opt.Password.RequireLowercase = true;
                 opt.Password.RequireDigit = true;
+
+                opt.SignIn.RequireConfirmedEmail = true;
 
             }).AddEntityFrameworkStores<TravelaDbContext>().AddDefaultTokenProviders();
 
